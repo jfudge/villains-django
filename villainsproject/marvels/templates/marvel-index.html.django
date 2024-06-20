@@ -1,0 +1,26 @@
+{% extends 'villainsproject/templates/base.html.django' %}
+
+{% block content %}
+<div class="grid">
+    {% for marvel in marvels %}
+    <div class="grid-item">
+        <h2><a href="{% url 'marvel-detail' marvel.pk %}">{{ marvel.title }}</a></h2>
+        <h3>Last updated by {{ marvel.user.username }}</h3>
+        <h3>Villains:
+        {% for villain in marvel.villains.all %}
+        {{ villain.name }}{% if forloop.counter < marvel.villains.all|length %}, {% endif %}
+        {% comment %} |length gets the length of the collection. {% endcomment %}
+        {% endfor %}
+        </h3>
+        {% if marvel.marvelcover.image %}
+        <img src="{{ MEDIA_URL }}{{ marvel.marvelcover.image }}" alt="{{ marvel.title }}">
+        {% else %}
+        <a href="{% url 'add-marvelcover' marvel.pk %}" class="button">Add Cover</a>
+        {% endif %}
+        <a href="{% url 'marvel-detail' marvel.pk %}" class="button">Details</a>
+        <a href="{% url 'edit-marvel' marvel.pk %}" class="button">Edit</a>
+        <a href="{% url 'delete-marvel' marvel.pk %}" class="button">Delete</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

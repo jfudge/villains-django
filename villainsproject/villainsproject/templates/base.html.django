@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>villains</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+  <header>
+    <h1><span class="fa fa-bomb"></span> Villains <span class="fa fa-dragon"></h1>
+
+    <nav>
+      <ul>
+        <li><a href="{% url 'home' %}" {% if request.path == '/villains/' %}class="current"{% endif %}><span class="fa fa-music"></span> Villains</a></li>
+        <li><a href="{% url 'add' %}" {% if request.path == '/villains/add' %}class="current"{% endif %}><span class="fa fa-user-plus"></span> Add Villain</a></li>
+        
+        <li><a href="{% url 'marvels-home' %}" {% if request.path == '/marvels/' %}class="current"{% endif %}><span class="fa fa-caret-square-right"></span> Marvel</a></li>
+        <li><a href="{% url 'add-marvel' %}" {% if request.path == '/marvels/add' %}class="current"{% endif %}><span class="fa fa-plus-square"></span> Add Marvel</a></li>
+
+        <li><a href="{% url 'dcs-home' %}" {% if request.path == '/dcs/' %}class="current"{% endif %}><span class="fa fa-caret-square-right"></span> DC</a></li>
+        <li><a href="{% url 'add-dc' %}" {% if request.path == '/dcs/add' %}class="current"{% endif %}><span class="fa fa-plus-square"></span> Add DC</a></li>
+      </ul>
+      <ul class="right-nav">
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'reset' %}" {% if request.path == '/reset/' %}class="current"{% endif %}><span class="fa fa-ellipsis-h"></span> Reset Password</a></li>
+          <li><a href="{% url 'logout' %}"><span class="fa fa-sign-out-alt"></span> Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}" {% if request.path == '/users/login/' %}class="current"{% endif %}><span class="fa fa-sign-in-alt"></span> Login</a></li>
+          <li><a href="{% url 'signup' %}" {% if request.path == '/users/signup/' %}class="current"{% endif %}><span class="fa fa-user-plus"></span> Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer>
+    <p><small>Copyright {% now "Y" %} villains App</small></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'villainsproject/templates/base.html.django' %}
+
+{% block content %}
+    <h2>Delete Marvel</h2>
+    {% if user.is_authenticated %}
+    <div class="warning">
+    Are you sure you want to delete {{ marvel.title }}?
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'marvels-home' %}" class="button">Cancel</a>
+        <button type="submit">Yes, delete {{ marvel.title }}</button>
+    </form>
+    {% else %}
+    <p>Please log in or sign up to delete {{ marvel.title }}.</p>
+    <a href="{% url 'login' %}" class="button">Login</a>
+    <a href="{% url 'signup' %}" class="button">Sign Up</a>
+    {% endif %}
+{% endblock %}
